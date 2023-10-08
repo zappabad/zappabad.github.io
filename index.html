@@ -2,15 +2,33 @@
 <html>
 <head>
     <title>Card Searcher</title>
+    <style>
+        /* Container for the card list and image displays */
+        #mainContainer {
+            display: flex;
+        }
+        /* Style for the card list */
+        #cardContainer {
+            flex: 1;
+        }
+        /* Styles for the image displays */
+        #lastChosenImage, #currentImage {
+            flex: 1;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Search Box -->
     <input type="text" id="searchBox" placeholder="Search for cards...">
-
-    <!-- Container to display cards -->
-    <div id="cardContainer"></div>
-    <div id="imageDisplay"></div>
+    
+    <div id="mainContainer">
+        <!-- Card list -->
+        <div id="cardContainer"></div>
+        
+        <!-- Image displays -->
+        <div id="lastChosenImage"></div>
+        <div id="currentImage"></div>
+    </div>
 
     <script src="script.js"></script>
 </body>
