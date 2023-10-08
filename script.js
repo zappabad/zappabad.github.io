@@ -1,10 +1,6 @@
 import { db } from './firebaseConfig.js';
 import { ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 
-// Now you can use db in this file
-const cardNameRef = ref(db, 'currentCard');
-set(cardNameRef, card.name);
-
 console.log("DB in script.js:", db);  // Add this line
 
 let currentImageElement = null;
