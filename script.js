@@ -2,49 +2,41 @@ let lastChosenImageUrl = null;
 
 async function fetchAndDisplayCards() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/username/repository/branch/path/to/card.json');
-        const cardData = await response.json();
-        const searchBox = document.getElementById('searchBox');
+        // ... same as before ...
 
         searchBox.addEventListener('input', function() {
-            const cardContainer = document.getElementById('cardContainer');
-            cardContainer.innerHTML = '';
-
-            const query = searchBox.value.toLowerCase();
-            const filteredCards = cardData.filter(card => card.name.toLowerCase().includes(query));
+            // ... same as before ...
 
             filteredCards.forEach(card => {
                 const cardElement = document.createElement('div');
                 cardElement.textContent = card.name;
                 cardElement.className = 'clickable-card';
 
-                cardElement.addEventListener('click', async function() {
+                cardElement.addEventListener('click', function() {
                     const currentImageDisplay = document.getElementById('currentImage');
                     const lastChosenImageDisplay = document.getElementById('lastChosenImage');
 
-                    // Fade out the images
-                    currentImageDisplay.style.opacity = 0;
-                    lastChosenImageDisplay.style.opacity = 0;
-
-                    // Wait for fade out to complete (300ms as defined in the CSS)
-                    await new Promise(r => setTimeout(r, 300));
-
                     if (lastChosenImageUrl) {
-                        lastChosenImageDisplay.innerHTML = `<img src="${lastChosenImageUrl}" alt="Last Chosen" />`;
+                        const lastChosenImageElement = new Image();
+                        lastChosenImageElement.src = lastChosenImageUrl;
+                        lastChosenImageElement.alt = "Last Chosen";
+                        lastChosenImageElement.style.opacity = 1;
+                        lastChosenImageDisplay.innerHTML = '';
+                        lastChosenImageDisplay.appendChild(lastChosenImageElement);
                     }
 
                     const imageUrl = card.printings[0].image_url;
                     const imageElement = new Image();
                     imageElement.src = imageUrl;
                     imageElement.alt = card.name;
+                    imageElement.style.opacity = 0;  // start transparent
 
-                    // Display image once it has fully loaded
                     imageElement.onload = function() {
                         currentImageDisplay.innerHTML = '';
                         currentImageDisplay.appendChild(imageElement);
-                        // Fade in the images
-                        currentImageDisplay.style.opacity = 1;
-                        lastChosenImageDisplay.style.opacity = 1;
+                        
+                        // Fade in (from transparent to opaque)
+                        setTimeout(() => { imageElement.style.opacity = 1; }, 50);
                     };
 
                     lastChosenImageUrl = imageUrl;
