@@ -1,6 +1,3 @@
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"></script>
-<script>
 const firebaseConfig = {
 apiKey: "AIzaSyAbxn0DmAIXhAVYvHSDzMWxUalgdLWjmzw",
 authDomain: "fab-card-picker.firebaseapp.com",
@@ -14,10 +11,7 @@ measurementId: "G-0B6CRDHHEF"
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-</script>
 
-
-<script>
 let currentImageElement = null;
 
 async function fetchAndDisplayCards() {
@@ -80,4 +74,3 @@ async function fetchAndDisplayCards() {
 }
 
 fetchAndDisplayCards();
-</script>
