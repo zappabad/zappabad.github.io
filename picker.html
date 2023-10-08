@@ -1,40 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Card Picker</title>
+  <meta charset="UTF-8">
+  <title>zappabad- FAB Card Searcher</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js"></script>
+  <!-- Custom CSS -->
+  <style>
+    /* Image Fade Effect */
+    .crossfade-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 450px;
+      transition: opacity 1s ease-in-out;  /* 1s fade */
+    }
+    /* Pulse effect for list items */
+    .list-group-item:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+  </style>
 </head>
 <body>
-  <button onclick="pickCard('card1')">Card 1</button>
-  <button onclick="pickCard('card2')">Card 2</button>
+  <!-- Main Container -->
+  <div class="container mt-4">
+    <!-- Search Box -->
+    <input type="text" id="searchBox" class="form-control mb-4" placeholder="Search for cards...">
+    
+    <!-- Row for Card List and Image Display -->
+    <div class="row">
+      <!-- Card List -->
+      <div class="col-md-6">
+        <div id="cardContainer" class="list-group">
+          <!-- JavaScript will append individual cards here -->
+        </div>
+      </div>
+      
+      <!-- Image Display -->
+      <div class="col-md-6">
+        <div id="currentImage" class="image-wrapper">
+          <!-- JavaScript will handle image display here -->
+        </div>
+      </div>
+    </div>
+  </div>
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAbxn0DmAIXhAVYvHSDzMWxUalgdLWjmzw",
-    authDomain: "fab-card-picker.firebaseapp.com",
-    databaseURL: "https://fab-card-picker-default-rtdb.firebaseio.com",
-    projectId: "fab-card-picker",
-    storageBucket: "fab-card-picker.appspot.com",
-    messagingSenderId: "466969619425",
-    appId: "1:466969619425:web:d83cdf766971f052f200a0",
-    measurementId: "G-0B6CRDHHEF"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase();
-
-  // Function to pick a card and update it in Firebase
-  function pickCard(cardName) {
-    set(ref(db, 'currentCard'), cardName);
-  }
-</script>
-
+  <!-- Include your JavaScript file here -->
+  <script src="script.js"></script>
 </body>
 </html>
