@@ -2,7 +2,7 @@ let currentImageUrl = null;
 
 async function fetchAndDisplayCards() {
     try {
-        const response = await fetch('https://raw.githubusercontent.com/username/repository/branch/path/to/card.json');
+        const response = await fetch('https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/bbfcbc0ddb37bd588574bebd842d41dc8bde08d8/json/english/card.json');
         const cardData = await response.json();
         const searchBox = document.getElementById('searchBox');
 
