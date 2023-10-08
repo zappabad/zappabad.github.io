@@ -19,14 +19,17 @@ async function fetchAndDisplayCards() {
             const filteredCards = cardData.filter(card => card.name.toLowerCase().includes(query));
 
             filteredCards.forEach(card => {
-              const cardElement = document.createElement('button');
-              cardElement.textContent = card.name;
-              cardElement.className = 'list-group-item list-group-item-action';  // Bootstrap classes
-            
-              cardElement.addEventListener('click', function() {
+                // Determine the pitch color based on the 'pitch' field
+                const pitchColor = card.pitch === "1" ? "Red" : card.pitch === "2" ? "Yellow" : card.pitch === "3" ? "Blue" : null;
+                const displayName = pitchColor ? `${card.name} (${pitchColor})` : card.name;
+
+                const cardElement = document.createElement('button');
+                cardElement.textContent = displayName;  // Now includes pitch color
+                cardElement.className = 'list-group-item list-group-item-action';  // Bootstrap classes
+
+                cardElement.addEventListener('click', function() {
                     const currentImageDisplay = document.getElementById('currentImage');
 
-                    // Create new image element for the new card
                     const newImageElement = new Image();
                     newImageElement.src = card.printings[0].image_url;
                     newImageElement.alt = card.name;
@@ -34,15 +37,12 @@ async function fetchAndDisplayCards() {
                     newImageElement.style.opacity = 0;  // start transparent
 
                     newImageElement.onload = function() {
-                        // Fade in new image
                         newImageElement.style.opacity = 1;
                         
-                        // Fade out old image
                         if (currentImageElement) {
                             currentImageElement.style.opacity = 0;
                         }
 
-                        // After transition, remove old image and update currentImageElement
                         setTimeout(() => {
                             if (currentImageElement) {
                                 currentImageDisplay.removeChild(currentImageElement);
@@ -50,8 +50,9 @@ async function fetchAndDisplayCards() {
                             currentImageElement = newImageElement;
                         }, 1000);  // 1s transition
                     };
+
                     const cardNameRef = ref(db, 'currentCard');
-                    set(cardNameRef, card.name);
+                    set(cardNameRef, card.unique_id);  // Send unique_id to Firebase
 
                     currentImageDisplay.appendChild(newImageElement);
                 });
