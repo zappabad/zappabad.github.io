@@ -44,7 +44,7 @@
     }
 
     // Listen for changes to 'currentCard' in the database
-    firebase.database().ref('currentCard').on('value', (snapshot) => {
+    db.ref('currentCard').on('value', (snapshot) => {
       const cardName = snapshot.val();
       fetchCardImage(cardName);
     });
