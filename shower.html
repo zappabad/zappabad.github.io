@@ -2,15 +2,11 @@
 <html>
 <head>
   <title>Card Shower</title>
-  <script type="module" src="firebaseConfig.js"></script>
-  <script type="module" src="script.js"></script>
+  <script type="module">
+    // Import db from firebaseConfig.js and the necessary Realtime Database functions
+    import { db } from './firebaseConfig.js';
+    import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js';
 
-</head>
-<body>
-  <!-- This div will contain the displayed card image -->
-  <div id="currentImage"></div>
-
-  <script>
     async function fetchCardImage(cardName) {
       const response = await fetch('https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/bbfcbc0ddb37bd588574bebd842d41dc8bde08d8/json/english/card.json');
       const cardData = await response.json();
@@ -21,11 +17,18 @@
       }
     }
 
+    // Reference to the 'currentCard' in the database
+    const cardNameRef = ref(db, 'currentCard');
+
     // Listen for changes to 'currentCard' in the database
-    db.ref('currentCard').on('value', (snapshot) => {
+    onValue(cardNameRef, (snapshot) => {
       const cardName = snapshot.val();
       fetchCardImage(cardName);
     });
   </script>
+</head>
+<body>
+  <!-- This div will contain the displayed card image -->
+  <div id="currentImage"></div>
 </body>
 </html>
