@@ -2,10 +2,16 @@ let lastChosenImageUrl = null;
 
 async function fetchAndDisplayCards() {
     try {
-        // ... same as before ...
+        const response = await fetch('https://raw.githubusercontent.com/the-fab-cube/flesh-and-blood-cards/bbfcbc0ddb37bd588574bebd842d41dc8bde08d8/json/english/card.json');
+        const cardData = await response.json();
+        const searchBox = document.getElementById('searchBox');
 
         searchBox.addEventListener('input', function() {
-            // ... same as before ...
+            const cardContainer = document.getElementById('cardContainer');
+            cardContainer.innerHTML = '';
+
+            const query = searchBox.value.toLowerCase();
+            const filteredCards = cardData.filter(card => card.name.toLowerCase().includes(query));
 
             filteredCards.forEach(card => {
                 const cardElement = document.createElement('div');
