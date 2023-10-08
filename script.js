@@ -14,11 +14,11 @@ async function fetchAndDisplayCards() {
             const filteredCards = cardData.filter(card => card.name.toLowerCase().includes(query));
 
             filteredCards.forEach(card => {
-                const cardElement = document.createElement('div');
-                cardElement.textContent = card.name;
-                cardElement.className = 'clickable-card';
-
-                cardElement.addEventListener('click', function() {
+              const cardElement = document.createElement('button');
+              cardElement.textContent = card.name;
+              cardElement.className = 'list-group-item list-group-item-action';  // Bootstrap classes
+            
+              cardElement.addEventListener('click', function() {
                     const currentImageDisplay = document.getElementById('currentImage');
 
                     // Create new image element for the new card
