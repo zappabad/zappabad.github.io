@@ -26,6 +26,22 @@
       fetchCardImage(cardName);
     });
   </script>
+    <!-- Custom CSS -->
+  <style>
+    /* Image Fade Effect */
+    .crossfade-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 450px;
+      transition: opacity 1s ease-in-out;  /* 1s fade */
+    }
+    /* Pulse effect for list items */
+    .list-group-item:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+  </style>
 </head>
 <body>
   <!-- This div will contain the displayed card image -->
