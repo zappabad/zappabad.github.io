@@ -45,7 +45,7 @@ async function fetchAndDisplayCards() {
                             currentImageElement = newImageElement;
                         }, 1000);  // 1s transition
                     };
-                    firebase.database().ref('currentCard').set(card.name);
+                    db.ref('currentCard').set(card.name);
 
                     currentImageDisplay.appendChild(newImageElement);
                 });
