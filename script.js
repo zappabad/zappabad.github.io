@@ -1,3 +1,5 @@
+import { db } from './firebaseConfig.js';
+
 let currentImageElement = null;
 
 async function fetchAndDisplayCards() {
