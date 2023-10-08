@@ -1,4 +1,10 @@
 import { db } from './firebaseConfig.js';
+import { ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+
+// Now you can use db in this file
+const cardNameRef = ref(db, 'currentCard');
+set(cardNameRef, card.name);
+
 console.log("DB in script.js:", db);  // Add this line
 
 let currentImageElement = null;
@@ -48,7 +54,8 @@ async function fetchAndDisplayCards() {
                             currentImageElement = newImageElement;
                         }, 1000);  // 1s transition
                     };
-                    db.ref('currentCard').set(card.name);
+                    const cardNameRef = ref(db, 'currentCard');
+                    set(cardNameRef, card.name);
 
                     currentImageDisplay.appendChild(newImageElement);
                 });
