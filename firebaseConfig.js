@@ -6,7 +6,14 @@ import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  // your config here
+    apiKey: "AIzaSyAbxn0DmAIXhAVYvHSDzMWxUalgdLWjmzw",
+    authDomain: "fab-card-picker.firebaseapp.com",
+    databaseURL: "https://fab-card-picker-default-rtdb.firebaseio.com",
+    projectId: "fab-card-picker",
+    storageBucket: "fab-card-picker.appspot.com",
+    messagingSenderId: "466969619425",
+    appId: "1:466969619425:web:d83cdf766971f052f200a0",
+    measurementId: "G-0B6CRDHHEF"
 };
 
 // Initialize Firebase
