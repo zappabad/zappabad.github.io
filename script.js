@@ -16,12 +16,12 @@ async function fetchAndDisplayCards() {
 
             // Filter cards based on user input
             const query = searchBox.value.toLowerCase();
-            const filteredCards = cardData.filter(card => card.card_name.toLowerCase().includes(query));
+            const filteredCards = cardData.filter(card => card.name.toLowerCase().includes(query));
 
             // Display the filtered cards
             filteredCards.forEach(card => {
                 const cardElement = document.createElement('div');
-                cardElement.textContent = card.card_name;
+                cardElement.textContent = card.name;
                 cardContainer.appendChild(cardElement);
             });
         });
