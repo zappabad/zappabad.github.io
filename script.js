@@ -22,6 +22,18 @@ async function fetchAndDisplayCards() {
             filteredCards.forEach(card => {
                 const cardElement = document.createElement('div');
                 cardElement.textContent = card.name;
+                cardElement.className = 'clickable-card'; // Added a class for styling if needed
+                
+                // Add click event to show image
+                cardElement.addEventListener('click', function() {
+                    // Assume you have a designated div with id 'imageDisplay'
+                    const imageDisplay = document.getElementById('imageDisplay');
+                    // Take the first image URL from the 'printings' array
+                    const imageUrl = card.printings[0].image_url;
+                    // Update the imageDisplay div to show the image
+                    imageDisplay.innerHTML = `<img src="${imageUrl}" alt="${card.name}" />`;
+                });
+
                 cardContainer.appendChild(cardElement);
             });
         });
