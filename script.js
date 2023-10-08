@@ -1,4 +1,4 @@
-let currentImageUrl = null;
+let currentImageElement = null;
 
 async function fetchAndDisplayCards() {
     try {
@@ -26,37 +26,27 @@ async function fetchAndDisplayCards() {
                     newImageElement.src = card.printings[0].image_url;
                     newImageElement.alt = card.name;
                     newImageElement.className = 'crossfade-image';
-                    newImageElement.style.opacity = 0;
+                    newImageElement.style.opacity = 0;  // start transparent
 
-                    // Add new image to the display div
-                    currentImageDisplay.appendChild(newImageElement);
-
-                    // Cross-fade effect
                     newImageElement.onload = function() {
                         // Fade in new image
                         newImageElement.style.opacity = 1;
-
-                        // Fade out old image if it exists
-                        if (currentImageUrl) {
-                            const oldImageElement = document.querySelector(`img[src="${currentImageUrl}"]`);
-                            if (oldImageElement) {
-                                oldImageElement.style.opacity = 0;
-                            }
+                        
+                        // Fade out old image
+                        if (currentImageElement) {
+                            currentImageElement.style.opacity = 0;
                         }
 
-                        // Remove old image from DOM after transition
+                        // After transition, remove old image and update currentImageElement
                         setTimeout(() => {
-                            if (currentImageUrl) {
-                                const oldImageElement = document.querySelector(`img[src="${currentImageUrl}"]`);
-                                if (oldImageElement) {
-                                    currentImageDisplay.removeChild(oldImageElement);
-                                }
+                            if (currentImageElement) {
+                                currentImageDisplay.removeChild(currentImageElement);
                             }
-                        }, 1000);  // 1 second transition
-
-                        // Update current image URL
-                        currentImageUrl = newImageElement.src;
+                            currentImageElement = newImageElement;
+                        }, 1000);  // 1s transition
                     };
+
+                    currentImageDisplay.appendChild(newImageElement);
                 });
 
                 cardContainer.appendChild(cardElement);
