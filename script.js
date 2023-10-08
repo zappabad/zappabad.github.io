@@ -1,4 +1,5 @@
 import { db } from './firebaseConfig.js';
+console.log("DB in script.js:", db);  // Add this line
 
 let currentImageElement = null;
 
