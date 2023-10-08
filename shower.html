@@ -2,8 +2,29 @@
 <html>
 <head>
   <title>Card Shower</title>
+  <style>
+    /* Image Fade Effect */
+    .crossfade-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 450px;
+      transition: opacity 1s ease-in-out;  /* 1s fade */
+      opacity: 0;
+    }
+
+    .visible {
+      opacity: 1;
+    }
+
+    /* Pulse effect for list items */
+    .list-group-item:active {
+      transform: scale(0.95);
+      transition: transform 0.1s ease;
+    }
+  </style>
   <script type="module">
-    // Import db from firebaseConfig.js and the necessary Realtime Database functions
+    // Import db and necessary Firebase functions
     import { db } from './firebaseConfig.js';
     import { ref, onValue } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js';
 
@@ -13,35 +34,35 @@
       const card = cardData.find(c => c.name === cardName);
       if (card) {
         const currentImageDisplay = document.getElementById('currentImage');
-        currentImageDisplay.innerHTML = `<img src="${card.printings[0].image_url}" alt="${card.name}">`;
+        const newImage = document.createElement('img');
+        newImage.src = card.printings[0].image_url;
+        newImage.alt = card.name;
+        newImage.className = 'crossfade-image';
+
+        currentImageDisplay.appendChild(newImage);
+
+        setTimeout(() => {
+          newImage.classList.add('visible');
+        }, 50);
+
+        const oldImage = document.querySelector('.visible');
+        if (oldImage) {
+          oldImage.classList.remove('visible');
+          setTimeout(() => {
+            oldImage.remove();
+          }, 1000);  // Remove after 1s to match the fade transition
+        }
       }
     }
 
-    // Reference to the 'currentCard' in the database
     const cardNameRef = ref(db, 'currentCard');
 
-    // Listen for changes to 'currentCard' in the database
+    // Listen for changes
     onValue(cardNameRef, (snapshot) => {
       const cardName = snapshot.val();
       fetchCardImage(cardName);
     });
   </script>
-    <!-- Custom CSS -->
-  <style>
-    /* Image Fade Effect */
-    .crossfade-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 450px;
-      transition: opacity 1s ease-in-out;  /* 1s fade */
-    }
-    /* Pulse effect for list items */
-    .list-group-item:active {
-      transform: scale(0.95);
-      transition: transform 0.1s ease;
-    }
-  </style>
 </head>
 <body>
   <!-- This div will contain the displayed card image -->
