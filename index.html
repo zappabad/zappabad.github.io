@@ -15,6 +15,19 @@
         #lastChosenImage, #currentImage {
             flex: 1;
         }
+        /* Fixed width for images and make them overlap */
+        .image-wrapper {
+            position: relative;
+            width: 450px;
+        }
+        
+        .image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 450px;
+            transition: opacity 1s ease-in-out;  /* 1s fade */
+        }
     </style>
 </head>
 <body>
@@ -26,8 +39,8 @@
         <div id="cardContainer"></div>
         
         <!-- Image displays -->
-        <div id="lastChosenImage"></div>
-        <div id="currentImage"></div>
+        <div class="image-wrapper" id="lastChosenImage"></div>
+        <div class="image-wrapper" id="currentImage"></div>
     </div>
 
     <script src="script.js"></script>
