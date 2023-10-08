@@ -6,29 +6,15 @@
 <body>
   <button onclick="pickCard('card1')">Card 1</button>
   <button onclick="pickCard('card2')">Card 2</button>
-  <script>
-    // Initialize Firebase
-    const firebaseConfig = {
-      // Your config here
-    };
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.database(app);
-
-    function pickCard(cardName) {
-      // Update Firebase
-      db.ref('currentCard').set(cardName);
-    }
-  </script>
 
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
+  import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
     apiKey: "AIzaSyAbxn0DmAIXhAVYvHSDzMWxUalgdLWjmzw",
     authDomain: "fab-card-picker.firebaseapp.com",
@@ -42,7 +28,12 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const db = getDatabase();
+
+  // Function to pick a card and update it in Firebase
+  function pickCard(cardName) {
+    set(ref(db, 'currentCard'), cardName);
+  }
 </script>
 
 </body>
