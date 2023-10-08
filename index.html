@@ -1,35 +1,16 @@
-// Function to fetch and display card data
-async function fetchAndDisplayCards() {
-    try {
-        // Fetch the card data from the JSON file
-        const response = await fetch('/data/card_data.json');
-        const cardData = await response.json();
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Card Searcher</title>
+</head>
+<body>
 
-        // Get the search box element
-        const searchBox = document.getElementById('searchBox');
+    <!-- Search Box -->
+    <input type="text" id="searchBox" placeholder="Search for cards...">
 
-        // Listen for user input to filter cards
-        searchBox.addEventListener('input', function() {
-            // Clear the card container
-            const cardContainer = document.getElementById('cardContainer');
-            cardContainer.innerHTML = '';
+    <!-- Container to display cards -->
+    <div id="cardContainer"></div>
 
-            // Filter cards based on user input
-            const query = searchBox.value.toLowerCase();
-            const filteredCards = cardData.filter(card => card.card_name.toLowerCase().includes(query));
-
-            // Display the filtered cards
-            filteredCards.forEach(card => {
-                const cardElement = document.createElement('div');
-                cardElement.textContent = card.card_name;
-                cardContainer.appendChild(cardElement);
-            });
-        });
-
-    } catch (error) {
-        console.error('Error fetching or displaying data:', error);
-    }
-}
-
-// Initialize the function
-fetchAndDisplayCards();
+    <script src="script.js"></script>
+</body>
+</html>
